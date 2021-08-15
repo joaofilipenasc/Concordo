@@ -386,7 +386,7 @@ string Sistema::enter_channel(int id, string nome) {
 
   if(itCanalTexto != findCanaisTexto.end()) {
     servidorCanal.second = nome;
-    return "Entrou no canal de " + nome + ".";
+    return "Entrou no canal " + nome + ".";
   }
 }
 
