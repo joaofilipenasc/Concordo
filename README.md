@@ -1,10 +1,14 @@
 # Concordo
 
-O Concordo é discord clone e faz parte da avaliação da disciplina de Linguagem de Programação I do curso de Tecnologia da Informação do IMD/UFRN.
+```console
+O Concordo é discord clone e se trata de um projeto da disciplina de Linguagem de Programação I do curso de Tecnologia da Informação do IMD/UFRN.
+```
 
 ## Linguagem utilizada
 
-C++
+```console
+c++
+```
 
 ## Como rodar
 
