@@ -3,9 +3,9 @@
 
 class Mensagem  {
 	private:
-		std::string dataHora;
+		string dataHora;
         int enviadaPor;
-        std::string conteudo;
+        string conteudo;
     
     public:
         Mensagem();

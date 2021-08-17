@@ -61,7 +61,7 @@ string Sistema::login(const string email, const string senha) {
     if(it -> getEmail() == email) {
       if(it -> getSenha() == senha) {
         usuarioLogadoID = it -> getId();
-        return "Logado com " + email;
+        return "Logado como " + email;
       }
     }
     it++;
@@ -386,7 +386,7 @@ string Sistema::enter_channel(int id, string nome) {
 
   if(itCanalTexto != findCanaisTexto.end()) {
     servidorCanal.second = nome;
-    return "Entrou no canal " + nome + ".";
+    return "Entrou no canal " + nome + "\'.";
   }
 }
 
@@ -404,6 +404,11 @@ string Sistema::leave_channel(int id) {
   if(servidorCanal.second.length() == 0) {
     return "O usuário não está conectado a um canal no momento.";
   }
+
+  string nomeCanal = servidorCanal.second;
+  servidorCanal.second = "";
+
+  return "O usuário está saindo do canal \'" + nomeCanal + "\'.";
 }
 
 //Enviar uma mensagem para o canal
@@ -420,6 +425,29 @@ string Sistema::send_message(int id, const string mensagem) {
   if(servidorCanal.second.length() == 0) {
     return "O usuário não está conectado a um canal no momento.";
   }
+
+  if(mensagem.empty()) {
+    return "A mensagem está vazia.";
+  }
+
+  string nomeServidor = servidorCanal.first;
+
+  auto itServidor = find_if(servidores.begin(), servidores.end(), [nomeServidor](Servidor servidor) {
+    return servidor.getNome() == nomeServidor;
+  });
+
+  //Faz a captura e o armazenamento da hora atual
+  char dataHora[100];
+  time_t atual = time(nullptr);
+
+  strftime(dataHora, 50, "%d/%m/%Y - %R", localtime(&atual));
+
+  Mensagem novaMensagem(dataHora, id, mensagem);
+
+  itServidor -> sendMensagem(servidorCanal.second, novaMensagem);
+
+  return "A mensagem foi enviada com sucesso.";
+  
 }
 
 //Listar as mensagens do canal
@@ -436,4 +464,23 @@ string Sistema::list_messages(int id) {
   if(servidorCanal.second.length() == 0) {
     return "O usuário não está conectado a um canal no momento.";
   }
+
+  string nomeServidor = servidorCanal.first;
+
+  auto itServidor = find_if(servidores.begin(), servidores.end(), [nomeServidor](Servidor servidor) {
+    return servidor.getNome() == nomeServidor;
+  });
+
+  vector<Mensagem> listaMensagens = itServidor -> getMensagens(servidorCanal.second);
+
+  if(listaMensagens.empty()) {
+    return "Não há mensagens.";
+  }
+
+  string mensagens;
+  for(auto itMensagem = listaMensagens.begin(); itMensagem != listaMensagens.end(); itMensagem++) {
+    mensagens += usuarios[itMensagem -> getEnviadaPor() - 1].getNome() + " <" + itMensagem -> getDataHora() + ">: " + itMensagem -> getConteudo() + "\n";
+  }  
+  return mensagens;
+
 }
