@@ -1,34 +1,35 @@
 .DEFAULT_GOAL := all
 
-OBJECTS=build/sistema.o build/executor.o
-
-build/sistema.o: src/sistema.cpp include/sistema.h
-	g++ src/sistema.cpp -c -o build/sistema.o
-
-build/executor.o: src/executor.cpp include/executor.h 
-	g++ -Iinclude src/executor.cpp -c -o build/executor.o
-
 build/usuario.o: src/usuario.cpp include/usuario.h
-	g++ -Iinclude src/usuario.cpp -c -o build/usuario.o
+		g++ src/usuario.cpp -Iinclude -Wall -ansi -pedantic -std=c++11 -g -c -o build/usuario.o
 
-build/mensagem.o: src/mensagem.cpp include/mensagem.h
-	g++ -Iinclude src/mensagem.cpp -c -o build/mensagem.o
+build/servidor.o: src/servidor.cpp include/servidor.h
+		g++ src/servidor.cpp -Iinclude -Wall -ansi -pedantic -std=c++11 -g -c -o build/servidor.o
 
-build/canaltexto.o: src/canalTexto.cpp include/canaltexto.h 
-	g++ -Iinclude src/canaltexto.cpp -c -o build/canaltexto.o
+build/canaltexto.o: src/canaltexto.cpp include/canaltexto.h
+		g++ src/canaltexto.cpp -Iinclude -Wall -ansi -pedantic -std=c++11 -g -c -o build/canaltexto.o
 
-build/servidor.o: src/servidor.cpp include/canaltexto.h
-	g++ -Iinclude src/servidor.cpp -c -o build/servidor.o
+build/sistema.o: src/sistema.cpp include/sistema.h build/usuario.o build/servidor.o build/canaltexto.o
+		g++ src/sistema.cpp -Iinclude -Wall -ansi -pedantic -std=c++11 -g -c -o build/sistema.o
 
-objects: sistema.o executor.o usuario.o mensagem.o canaltexto.o servidor.o
+build/executor.o: src/executor.cpp include/executor.h build/sistema.o
+		g++ src/executor.cpp -Iinclude -Wall -ansi -pedantic -std=c++11 -g -c -o build/executor.o
 
-concordo: objects src/concordo.cpp build/sistema.o build/executor.o build/usuario.o build/mensagem.o build/canaltexto.o build/servidor.o
-	g++ -Wall -fsanitize=address -Iinclude sistema.o executor.o usuario.o mensagem.o canaltexto.o servidor.o src/concordo.cpp -o build/concordo
+build/concordo.o: src/concordo.cpp build/sistema.o build/executor.o build/usuario.o build/servidor.o build/canaltexto.o
+		g++ src/concordo.cpp -Iinclude -Wall -ansi -pedantic -std=c++11 -g -c -o build/concordo.o
 
-clean:
-	rm build/*.o build/concordo
+concordo: build/concordo.o build/sistema.o build/executor.o build/usuario.o build/servidor.o build/canaltexto.o
+		g++ build/*.o -Iinclude -Wall -ansi -pedantic -std=c++11 -g -o concordo
 
-all: concordo
+#cria a pasta objects
+create_build:
+		mkdir -p build
+
+all: create_build concordo
 
 run:
-	./build/concordo
+		./concordo
+
+#remove a pasta build e o executável do projeto
+clean:
+		rm -rf build concordo
