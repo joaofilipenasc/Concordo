@@ -1,6 +1,8 @@
 #ifndef MENSAGEM_H
 #define MENSAGEM_H
 
+using namespace std;
+
 class Mensagem  {
 	private:
 		string dataHora;

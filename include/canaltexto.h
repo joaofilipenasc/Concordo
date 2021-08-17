@@ -3,10 +3,12 @@
 
 #include "mensagem.h"
 
+using namespace std;
+
 class CanalTexto	{
 	private:
-		std::string nome;
-		std::vector<Mensagem> mensagens;  
+		string nome;
+		vector<Mensagem> mensagens;  
 	
 	public:
 		CanalTexto();

@@ -1,12 +1,14 @@
 #ifndef USUARIO_H
 #define USUARIO_H
 
+using namespace std;
+
 class Usuario	{
 	private:
 		int id;
-		std::string nome;
-		std::string email;
-		std::string senha;
+		string nome;
+		string email;
+		string senha;
 
 	public:
 		Usuario();

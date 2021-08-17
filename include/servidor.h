@@ -7,14 +7,16 @@
 
 #include "canaltexto.h"
 
+using namespace std;
+
 class Servidor	{
 	private:
 		int usuarioDonoId;
-		std::string nome;
-		std::string descricao;
-		std::string codigoConvite;
-		std::vector<CanalTexto> canais;
-		std::vector<int> participantesIDs;
+		string nome;
+		string descricao;
+		string codigoConvite;
+		vector<CanalTexto> canais;
+		vector<int> participantesIDs;
 	
 	public:
 		Servidor();
