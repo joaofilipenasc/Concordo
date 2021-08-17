@@ -1,0 +1,148 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/canaltexto.h
+mensagem.h
+../include/mensagem.h
+
+../include/executor.h
+sistema.h
+../include/sistema.h
+istream
+-
+ostream
+-
+sstream
+-
+
+../include/mensagem.h
+
+../include/servidor.h
+iostream
+-
+vector
+-
+memory
+-
+canaltexto.h
+../include/canaltexto.h
+
+../include/sistema.h
+vector
+-
+string
+-
+iostream
+-
+map
+-
+usuario.h
+../include/usuario.h
+servidor.h
+../include/servidor.h
+canaltexto.h
+../include/canaltexto.h
+mensagem.h
+../include/mensagem.h
+
+../include/usuario.h
+
+/mnt/c/Users/João Filipe/Downloads/Concordo/include/canaltexto.h
+mensagem.h
+/mnt/c/Users/João Filipe/Downloads/Concordo/include/mensagem.h
+
+/mnt/c/Users/João Filipe/Downloads/Concordo/include/executor.h
+sistema.h
+/mnt/c/Users/João Filipe/Downloads/Concordo/include/sistema.h
+istream
+-
+ostream
+-
+sstream
+-
+
+/mnt/c/Users/João Filipe/Downloads/Concordo/include/mensagem.h
+
+/mnt/c/Users/João Filipe/Downloads/Concordo/include/servidor.h
+iostream
+-
+vector
+-
+memory
+-
+canaltexto.h
+/mnt/c/Users/João Filipe/Downloads/Concordo/include/canaltexto.h
+
+/mnt/c/Users/João Filipe/Downloads/Concordo/include/sistema.h
+vector
+-
+string
+-
+iostream
+-
+map
+-
+usuario.h
+/mnt/c/Users/João Filipe/Downloads/Concordo/include/usuario.h
+servidor.h
+/mnt/c/Users/João Filipe/Downloads/Concordo/include/servidor.h
+canaltexto.h
+/mnt/c/Users/João Filipe/Downloads/Concordo/include/canaltexto.h
+mensagem.h
+/mnt/c/Users/João Filipe/Downloads/Concordo/include/mensagem.h
+
+/mnt/c/Users/João Filipe/Downloads/Concordo/include/usuario.h
+
+/mnt/c/Users/João Filipe/Downloads/Concordo/src/concordo.cpp
+iostream
+-
+list
+-
+vector
+-
+string
+-
+../include/sistema.h
+/mnt/c/Users/João Filipe/Downloads/Concordo/include/sistema.h
+../include/executor.h
+/mnt/c/Users/João Filipe/Downloads/Concordo/include/executor.h
+
+/mnt/c/Users/João Filipe/Downloads/Concordo/src/executor.cpp
+executor.h
+/mnt/c/Users/João Filipe/Downloads/Concordo/src/executor.h
+istream
+-
+ostream
+-
+iostream
+-
+sstream
+-
+queue
+-
+
+/mnt/c/Users/João Filipe/Downloads/Concordo/src/sistema.cpp
+iostream
+-
+sstream
+-
+algorithm
+-
+map
+-
+utility
+-
+time.h
+-
+../include/sistema.h
+/mnt/c/Users/João Filipe/Downloads/Concordo/include/sistema.h
+../include/usuario.h
+/mnt/c/Users/João Filipe/Downloads/Concordo/include/usuario.h
+../include/servidor.h
+/mnt/c/Users/João Filipe/Downloads/Concordo/include/servidor.h
+

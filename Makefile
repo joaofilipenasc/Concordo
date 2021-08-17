@@ -14,15 +14,15 @@ build/usuario.o: src/usuario.cpp include/usuario.h
 build/mensagem.o: src/mensagem.cpp include/mensagem.h
 	g++ -Iinclude src/mensagem.cpp -c -o build/mensagem.o
 
-build/canaltexto.o: src/canalTexto.cpp canaltexto.o
+build/canaltexto.o: src/canalTexto.cpp include/canaltexto.h 
 	g++ -Iinclude src/canaltexto.cpp -c -o build/canaltexto.o
 
-build/servidor.o: src/servidor.cpp mensagem.o canaltexto.o include/servidor.h include/canaltexto.h
+build/servidor.o: src/servidor.cpp include/canaltexto.h
 	g++ -Iinclude src/servidor.cpp -c -o build/servidor.o
 
 objects: sistema.o executor.o usuario.o mensagem.o canaltexto.o servidor.o
 
-concordo: objects src/concordo.cpp
+concordo: objects src/concordo.cpp build/sistema.o build/executor.o build/usuario.o build/mensagem.o build/canaltexto.o build/servidor.o
 	g++ -Wall -fsanitize=address -Iinclude sistema.o executor.o usuario.o mensagem.o canaltexto.o servidor.o src/concordo.cpp -o build/concordo
 
 clean:
