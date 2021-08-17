@@ -1,26 +1,18 @@
-# Base para a atividade 02 de LP1
+# Concordo
 
-Use esse esqueleto de classes para iniciar a terceira atividade.
+O Concordo é discord clone e faz parte da avaliação da disciplina de Linguagem de Programação I do curso de Tecnologia da Informação do IMD/UFRN.
 
-Existe um executor que faz a interpretação dos comandos e executa o método correto do sistema.
+## Linguagem utilizada
 
-## Para compilar
+C++
 
-Com makefiles:
+## Como rodar
+
+Com Makefile:
 ```console
 mkdir build
 make
 ```
-
-Com cmake:
-```console
-mkdir build
-cd build
-cmake ..
-cmake --build .
-```
-
-Escolha uma das duas formas de build e ignore a outra.
 
 ## Para executar
 Você pode rodar o sistema e em logo depois digitar os comandos seguidos de ENTER
