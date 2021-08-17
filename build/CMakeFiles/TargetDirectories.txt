@@ -1,3 +1,0 @@
-/mnt/c/Users/João Filipe/Downloads/Concordo/build/CMakeFiles/rebuild_cache.dir
-/mnt/c/Users/João Filipe/Downloads/Concordo/build/CMakeFiles/edit_cache.dir
-/mnt/c/Users/João Filipe/Downloads/Concordo/build/CMakeFiles/concordo.dir
