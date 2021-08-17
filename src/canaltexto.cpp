@@ -1,8 +1,8 @@
 #include <string>
 #include <vector>
 
-#include "canaltexto.h"
-#include "mensagem.h"
+#include "../include/canaltexto.h"
+#include "../include/mensagem.h"
 
 using namespace std;
 

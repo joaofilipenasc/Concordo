@@ -1,4 +1,3 @@
-#include "sistema.h"
 #include <iostream>
 #include <sstream>
 #include <algorithm>
@@ -6,9 +5,9 @@
 #include <utility>
 #include <time.h>
 
-#include "sistema.h"
-#include "usuario.h"
-#include "servidor.h"
+#include "../include/sistema.h"
+#include "../include/usuario.h"
+#include "../include/servidor.h"
 
 using namespace std;
 
@@ -386,8 +385,14 @@ string Sistema::enter_channel(int id, string nome) {
 
   if(itCanalTexto != findCanaisTexto.end()) {
     servidorCanal.second = nome;
-    return "Entrou no canal " + nome + "\'.";
+    return "Entrou no canal \'" + nome + "\'.";
+  } 
+  else {
+    servidorCanal.second = nome;
+
+    return "Entrou no canal \'" + nome + "\'.";
   }
+
 }
 
 //Sair de um canal
@@ -410,7 +415,7 @@ string Sistema::leave_channel(int id) {
 
   return "O usuário está saindo do canal \'" + nomeCanal + "\'.";
 }
-
+/*
 //Enviar uma mensagem para o canal
 string Sistema::send_message(int id, const string mensagem) {
   
@@ -484,3 +489,4 @@ string Sistema::list_messages(int id) {
   return mensagens;
 
 }
+*/

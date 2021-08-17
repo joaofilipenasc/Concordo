@@ -4,9 +4,9 @@
 #include <string>
 #include <vector>
 
-#include "servidor.h"
-#include "canaltexto.h"
-#include "mensagem.h"
+#include "../include/servidor.h"
+#include "../include/canaltexto.h"
+#include "../include/mensagem.h"
 
 using namespace std;
 
@@ -78,11 +78,13 @@ bool Servidor::pushParticipante(int participanteID) {
   return true;
 }
 
+/*
 vector<Mensagem> Servidor::getMensagens(string nome) {
   auto it_canal = find_if(canais.begin(), canais.end(), [nome](shared_ptr<CanalTexto> canal) {
     return canal -> getNome() == nome;
   });
   return it_canal -> getMensagens();
+
 }
 
 void Servidor::sendMensagem(string nome, Mensagem mensagem) {
@@ -90,6 +92,8 @@ void Servidor::sendMensagem(string nome, Mensagem mensagem) {
     return canal -> getNome() == nome;
   });
   it_canal -> sendMensagem(nome, mensagem);
+
 }
+*/
 
 Servidor::~Servidor() {}

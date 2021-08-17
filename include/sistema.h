@@ -1,5 +1,6 @@
 #ifndef SISTEMA_H
 #define SISTEMA_H
+
 #include <vector>
 #include <string>
 #include <iostream>
@@ -20,7 +21,6 @@ class Sistema	{
 		map< int, pair<string, string> > usuariosLogados; //<! um vetor contendo os usuários que logaram no sistema
 		int usuarioLogadoID;
 		pair<string, string> servidorCanal; //<! um par contendo o servidor e o canal
-
 
   public:
 
