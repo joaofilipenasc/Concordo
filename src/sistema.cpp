@@ -317,90 +317,111 @@ string Sistema::list_participants(int id) {
 //Listar os canais do servidor
 string Sistema::list_channels(int id) {
   
+  //Verificar se o usuário está cadastrado no sistema com o seu id
   if(id == 0) {
     return "Não existe usuário conectado.";
   }
 
+  //Verificar se o usuário está logado em algum servidor
   if(servidorCanal.first.length() == 0) {
     return "O usuário não está conectado a um servidor no momento.";
   }
 
-  //Obtém o servidor na lista pelo nome
+  //Encontrar o servidor pelo nome
   string nomeServidor = servidorCanal.first;
+
   auto itServidor = find_if(servidores.begin(), servidores.end(), [nomeServidor](Servidor servidor) {
     return nomeServidor == servidor.getNome();
   });
 
   vector<string> canaisTexto = itServidor -> getCanaisTexto();
 
+  //Verificar se os canais estão vazios
   if(canaisTexto.empty()) {
     return "Nenhum canal no servidor foi encontrado.";
   }
+
   //Variável de retorno para concatenar os canais
   string canais;
-  if (!canaisTexto.empty()) {
+
+  if(!canaisTexto.empty()) {
     canais += "#canais de texto\n";
 
-    for (auto findCanal = canaisTexto.begin(); findCanal != canaisTexto.end(); findCanal++) {
-      if (findCanal != canaisTexto.end()) canais += *findCanal + "\n";
+    for(auto itCanal = canaisTexto.begin(); itCanal != canaisTexto.end(); itCanal++) {
+      if(itCanal != canaisTexto.end()) {
+        canais += *itCanal + "\n";
+      }
     }
   }
+
   return canais;
 
 }
+
 //Criar um canal do servidor
 string Sistema::create_channel(int id, const string nome) {
 
+  //Verificar se o usuário está cadastrado no sistema com o seu id
   if(id == 0) {
     return "Não existe usuário conectado.";
   }
 
+  //Verificar se o usuário está logado em algum servidor
   if(servidorCanal.first.length() == 0) {
     return "O usuário não está conectado a um servidor no momento.";
   }
 
+  //Verificar se o canal é uma string não vazia
   if(nome.length() == 0) {
     return "O canal precisa ter um nome";
   }
 
+  //Encontrar o servidor pelo nome
   string nomeServidor = servidorCanal.first;
 
   auto itServidor = find_if(servidores.begin(), servidores.end(), [nomeServidor](Servidor servidor) {
     return servidor.getNome() == nomeServidor;
   });
 
+  //Inicializar um vetor de string que armazena a variável que vai pegar todos os canais de texto
   vector<string> canaisTexto = itServidor -> getCanaisTexto();
+
+  //Verificar se o canal já existe pelo nome
   auto itCanal = find_if(canaisTexto.begin(), canaisTexto.end(), [nome](string nomeCanal) {
     return nomeCanal == nome;
   });
-
   if(itCanal != canaisTexto.end()) {
     return "Canal de texto \'" + nome + "\' já existe.";
   }
 
+  //Após todas as verificações anteriores, criar um objeto da classe CanalTexto que represente o novo canal recém-criado
   vector<Mensagem> mensagens;
   shared_ptr<CanalTexto> novoCanal(new CanalTexto(nome, mensagens));
+
   bool canalCriado = itServidor -> createCanal(novoCanal);
 
   if(canalCriado) {
     return "Canal de texto \'" + nome + "\' criado.";
   }
 
-  return "Houve um erro ao criar canal.";
+  return "Erro ao criar canal de texto.";
   
 }
 
 //Entrar em um canal
 string Sistema::enter_channel(int id, string nome) {
   
+  //Verificar se o usuário está cadastrado no sistema com o seu id
   if(id == 0) {
     return "Não existe usuário conectado.";
   }
 
+  //Verificar se o usuário está logado em algum servidor
   if(servidorCanal.first.length() == 0) {
     return "O usuário não está conectado a um servidor no momento.";
   }
 
+  //Verificar se o canal é uma string não vazia
   if(nome.length() == 0) {
     return "O canal precisa ter um nome para entrar";
   }
@@ -431,22 +452,26 @@ string Sistema::enter_channel(int id, string nome) {
 //Sair de um canal
 string Sistema::leave_channel(int id) {
   
+  //Verificar se o usuário está cadastrado no sistema com o seu id
   if(id == 0) {
     return "Não existe usuário conectado.";
   }
 
+  //Verificar se o usuário está logado em algum servidor
   if(servidorCanal.first.length() == 0) {
     return "O usuário não está conectado a um servidor no momento.";
   }
 
+  //Verificar se o canal é uma string não vazia
   if(servidorCanal.second.length() == 0) {
     return "O usuário não está conectado a um canal no momento.";
   }
 
-  string nomeCanal = servidorCanal.second;
+  string temp = servidorCanal.second;
   servidorCanal.second = "";
 
-  return "O usuário está saindo do canal \'" + nomeCanal + "\'.";
+  return "O usuário está saindo do canal \'" + temp + "\'.";
+
 }
 
 //Enviar uma mensagem para o canal
