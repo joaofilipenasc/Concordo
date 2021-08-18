@@ -24,45 +24,50 @@ string Sistema::quit() {
   return "Saindo...";
 }
 
-//Funcionalidades 1
+//FUNCIONALIDADES 1
+
 //Cria um novo usuário
 string Sistema::create_user(const string email, const string senha, const string nome) {
   
+  //Verificar se os campos solicitados estão vazios
   if(email.empty() && senha.empty() && nome.empty()) {
     return "Os campos não podem ser vazios.";
   }
 
+  //Verificar se o usuário já está cadastrado no sistema
   for(long unsigned int i = 0; i < usuarios.size(); i++) {
     if (usuarios[i].getEmail() == email) {
       return "Usuário já existe.";
     }
   }
 
+  //Criar um novo objeto da classe Usuário e seta as devidas atribuições
   Usuario novoUsuario;
   novoUsuario.setId(usuarios.size() + 1);
   novoUsuario.setNome(nome);
   novoUsuario.setEmail(email);
   novoUsuario.setSenha(senha);
 
+  //Adicionar o usuário recém-criado à lista de usuários do sistema
   usuarios.push_back(novoUsuario);
 
   return "Usuário criado!";
   
 }
 
-//Realiza o login do usuário
+//Entrar no sistema com e-mail e senha
 string Sistema::login(const string email, const string senha) {
   
-  vector<Usuario>::iterator it = usuarios.begin();
-  //Verifica se o usuário existe
-  while(it != usuarios.end()) {
-    if(it -> getEmail() == email) {
-      if(it -> getSenha() == senha) {
-        usuarioLogadoID = it -> getId();
+  //Verificar se o usuário está cadastrado no sistema a partir de um iterador
+  vector<Usuario>::iterator itUsuario = usuarios.begin();
+  while(itUsuario != usuarios.end()) {
+    if(itUsuario -> getEmail() == email) {
+      if(itUsuario -> getSenha() == senha) {
+        usuarioLogadoID = itUsuario -> getId();
         return "Logado como " + email;
       }
     }
-    it++;
+    itUsuario++;
   }
   return "Email ou senha incorretos. Tente novamente!";
 
@@ -71,9 +76,12 @@ string Sistema::login(const string email, const string senha) {
 //Desconecta o usuário
 string Sistema::disconnect(int id) {
   
+  //Verificar se o usuário está cadastrado no sistema com o seu id
   if(id == 0) {
     return "Não existe usuário conectado.";
   }
+
+  //Utiliza a variável temporária idLogadoAnterior para atualizar o valor do id do usuário para 0 e desconectá-lo do sistema
   int idLogadoAnterior = id;
   id = 0;
 
@@ -84,20 +92,24 @@ string Sistema::disconnect(int id) {
 //Cria um servidor
 string Sistema::create_server(int id, const string nome) {
   
+  //Verificar se o usuário está cadastrado no sistema com o seu id
   if(id == 0) {
     return "Não existe usuário conectado.";
   }
 
+  //Verificar se o usuário forneceu um nome com caracteres para o servidor
   if(nome.empty()) {
     return "Não é possível criar um servidor sem nome.";
   }
 
+  //Verificar se o servidor já está cadastrado no sistema
   for(long unsigned int i = 0; i < servidores.size(); i++) {
     if(servidores[i].getNome() == nome) {
       return "Servidor com esse nome já existe.";
     }
   }
 
+  //Cria um novo objeto da classe Servidor e seta as devidas atribuições
   Servidor novoServidor(id, nome);
   servidores.push_back(novoServidor);
 
@@ -108,24 +120,29 @@ string Sistema::create_server(int id, const string nome) {
 //Modifica a descrição de um servidor
 string Sistema::set_server_desc(int id, const string nome, const string descricao) {
   
+  //Verificar se o usuário está cadastrado no sistema com o seu id
   if(id == 0) {
     return "Não existe usuário conectado.";
   }
-  //Verificar se existe servidor com o nome
+
+  //Inicialização do iterador que será usado para percorrer as listas de servidores do sistema
   vector<Servidor>::iterator itServidor;
+
+  //Verificar se existe servidor com o nome fornecido pelo usuário
   itServidor = find_if(servidores.begin(), servidores.end(), [nome](Servidor servidor) {
     return nome == servidor.getNome();
   });
   if(itServidor == servidores.end()) {
     return "Servidor '" + nome + "' não existe.";
   }
-  //Verifica se o usuário é o dono
+
+  //Verificar se o usuário é o dono do servidor
   if(itServidor -> getUsuarioDonoId() != id) {
     return "Você não pode alterar a descrição de um servidor que não foi criado por você.";
   }
 
+  //Muda a descrição do servidor
   itServidor -> setDescricao(descricao);
-
   return "Descrição do servidor '" + nome + "' modificada com sucesso.";
   
 }
@@ -133,29 +150,35 @@ string Sistema::set_server_desc(int id, const string nome, const string descrica
 //Altera o código de convite de um servidor
 string Sistema::set_server_invite_code(int id, const string nome, const string codigo) {
   
+  //Verifica se o usuário está cadastrado no sistema com o seu id
   if(id == 0) {
     return "Não existe usuário conectado.";
   }
-//Verificar se existe servidor com o nome
-  vector<Servidor>::iterator it;
-  it = find_if(servidores.begin(), servidores.end(), [nome](Servidor servidor) {
+
+  //Inicialização do iterador que será usado para percorrer as listas de servidores do sistema
+  vector<Servidor>::iterator itServidor;
+
+  //Verificar se existe servidor com o nome
+  itServidor = find_if(servidores.begin(), servidores.end(), [nome](Servidor servidor) {
     return nome == servidor.getNome();
   });
-  if(it == servidores.end()) {
+  if(itServidor == servidores.end()) {
     return "Servidor '" + nome + "' não existe.";
   }
-  //Verifica se o usuário é o dono
-  if(it->getUsuarioDonoId() != id) {
+
+  //Verificar se o usuário é o dono do servidor
+  if(itServidor -> getUsuarioDonoId() != id) {
     return "Você não pode alterar a descrição de um servidor que não foi criado por você.";
   }
   
+  //Verificar se o cógido tem tamanho maior do que 0
   if(codigo.length() > 0) {
-    it -> setCodigoConvite(codigo);
+    itServidor -> setCodigoConvite(codigo);
     return "Código de convite do servidor '" + nome +"' modificado!";
   }
-  //Se não houver um código
-  it -> setCodigoConvite("");
 
+  //Se o usuário não fornecer código de string vazia, o código é removido
+  itServidor -> setCodigoConvite("");
   return "Código de convite do servidor '" + nome +"' removido!";
 
 }
@@ -163,14 +186,17 @@ string Sistema::set_server_invite_code(int id, const string nome, const string c
 //Lista todos os servidores
 string Sistema::list_servers(int id) {
   
+  //Verifica se o usuário está cadastrado no sistema com o seu id
   if(id == 0) {
     return "Não existe usuário conectado.";
   }
 
+  //Verifica se a lista de servidores está vazia
   if(servidores.empty()) {
     return "Não há servidores cadastrados.";
   }
 
+  //Inicializa uma string vazia que será preenchida pelo nome de cada servidor armazenado em servidores
   string listaServidores = "";
   for(long unsigned int i = 0; i < servidores.size(); i++) {
     listaServidores += servidores[i].getNome() + "\n";
@@ -183,23 +209,26 @@ string Sistema::list_servers(int id) {
 //Deleta um servidor
 string Sistema::remove_server(int id, const string nome) {
   
+  //Verifica se o usuário está cadastrado no sistema com o seu id
   if(id == 0) {
     return "Não existe usuário conectado.";
   }
+
   //Verificar se existe servidor com o nome
-  vector<Servidor>::iterator it;
-  it = find_if(servidores.begin(), servidores.end(), [nome](Servidor servidor) {
+  vector<Servidor>::iterator itServidor;
+  itServidor = find_if(servidores.begin(), servidores.end(), [nome](Servidor servidor) {
     return nome == servidor.getNome();
   });
-  if(it == servidores.end()) {
+  if(itServidor == servidores.end()) {
     return "Servidor '" + nome + "' não existe.";
   }
-  //Verifica se o usuário é o dono
-  if(it->getUsuarioDonoId() != id) {
+
+  //Verifica se o usuário é o dono do servidor
+  if(itServidor -> getUsuarioDonoId() != id) {
     return "Você não pode alterar a descrição de um servidor que não foi criado por você.";
   }
 
-  servidores.erase(it);
+  servidores.erase(itServidor);
 
   return "Servidor '" + nome + "' removido";
 
@@ -208,20 +237,23 @@ string Sistema::remove_server(int id, const string nome) {
 //Entrar em um servidor
 string Sistema::enter_server(int id, string nome, string codigo) {
   
+  //Verificar se o usuário está cadastrado no sistema com o seu id
   if(id == 0) {
     return "Não existe usuário conectado.";
   }
+
   //Verificar se existe servidor com o nome
-  vector<Servidor>::iterator it;
-  it = find_if(servidores.begin(), servidores.end(), [nome](Servidor servidor) {
+  vector<Servidor>::iterator itServidor;
+  itServidor = find_if(servidores.begin(), servidores.end(), [nome](Servidor servidor) {
     return nome == servidor.getNome();
   });
-  if(it == servidores.end()) {
+  if(itServidor == servidores.end()) {
     return "Servidor '" + nome + "' não existe.";
   }
 
+  //Armazenar o nome do servidor no primeiro par, que representa o servidor do par servidor-canal
   servidorCanal = make_pair(nome,"");
-  it -> pushParticipante(id);
+  itServidor -> pushParticipante(id);
 
   return "Entrou no servidor com sucesso";
 
@@ -230,53 +262,58 @@ string Sistema::enter_server(int id, string nome, string codigo) {
 //Sair de um servidor
 string Sistema::leave_server(int id, const string nome) {
   
+  //Verificar se o usuário está cadastrado no sistema com o seu id
   if(id == 0) {
     return "Não existe usuário conectado.";
   }
+
   //Verificar se existe servidor com o nome
   if(nome.length() == 0) {
     return "O usuário não está conectado a nenhum servidor.";
   }
 
-  string tmp = nome;
+  string temp = nome;
   servidorCanal.first = "";
 
-  return "O usuário está aindo do servidor \'" + nome + "\'.";
+  return "O usuário está saindo do servidor \'" + temp + "\'.";
 
 }
 
 //Listar os participantes de um servidor
 string Sistema::list_participants(int id) {
   
+  //Verificar se o usuário está cadastrado no sistema com o seu id
   if(id == 0) {
     return "Não existe usuário conectado.";
   }
   
+  //Verificar se existe um servidor conectado
   if(servidorCanal.first.empty()) {
     return "Não existe servidor conectado.";
   }
 
-  Servidor findServidor;
+  //Procurar o servidor pelo nome
+  Servidor encontraServidor;
   for (long unsigned int i = 0; i < servidores.size(); i++) {
     if (servidores[i].getNome() == servidorCanal.first) {
-      findServidor = servidores[i];
+      encontraServidor = servidores[i];
     };
   }
 
   string listaParticipantes = "";
-  vector<int> listaIDs = findServidor.getParticipantesIDs();
 
-  for (long unsigned int i = 0; i < usuarios.size(); i++) {
-    for (long unsigned int j = 0; j < listaIDs.size(); j++) {
-      if (usuarios[i].getId() == listaIDs[j]) listaParticipantes += usuarios[i].getNome() + "\n";
-    }
+  //Exibir todos os usuários que estão no servidor como uma lista somente com o nome de cada um
+  vector<int> listaIDs = encontraServidor.getParticipantesIDs();
+  for(long unsigned int i = 0; i < usuarios.size(); i++) {
+    listaParticipantes += usuarios[i].getNome() + "\n";
   }
 
   return listaParticipantes;
 
 }
 
-//Funcionalidades 2
+//FUNCIONALIDADES 2
+
 //Listar os canais do servidor
 string Sistema::list_channels(int id) {
   
