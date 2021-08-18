@@ -12,9 +12,9 @@
 using namespace std;
 
 Sistema::Sistema() {
-  
-  auto servidorCanal = make_pair("","");
-  map< int , pair<string, string> > usuariosLogados;
+
+//Um map vazio
+map< int , pair<string, string> > usuariosLogados; 
 
 }
 
@@ -98,8 +98,8 @@ string Sistema::create_server(int id, const string nome) {
     }
   }
 
-  Servidor newServidor(id, nome);
-  servidores.push_back(newServidor);
+  Servidor novoServidor(id, nome);
+  servidores.push_back(novoServidor);
 
   return "Servidor criado.";
   
@@ -112,19 +112,19 @@ string Sistema::set_server_desc(int id, const string nome, const string descrica
     return "Não existe usuário conectado.";
   }
   //Verificar se existe servidor com o nome
-  vector<Servidor>::iterator it;
-  it = find_if(servidores.begin(), servidores.end(), [nome](Servidor servidor) {
+  vector<Servidor>::iterator itServidor;
+  itServidor = find_if(servidores.begin(), servidores.end(), [nome](Servidor servidor) {
     return nome == servidor.getNome();
   });
-  if(it == servidores.end()) {
+  if(itServidor == servidores.end()) {
     return "Servidor '" + nome + "' não existe.";
   }
   //Verifica se o usuário é o dono
-  if(it->getUsuarioDonoId() != id) {
+  if(itServidor -> getUsuarioDonoId() != id) {
     return "Você não pode alterar a descrição de um servidor que não foi criado por você.";
   }
 
-  it -> setDescricao(descricao);
+  itServidor -> setDescricao(descricao);
 
   return "Descrição do servidor '" + nome + "' modificada com sucesso.";
   

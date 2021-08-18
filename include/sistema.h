@@ -19,8 +19,8 @@ class Sistema	{
 		vector<Servidor> servidores; //<! um vetor com todos os servidores
 		vector<Usuario> usuarios; //<! um vetor com todos os usuários cadastrados
 		map< int, pair<string, string> > usuariosLogados; //<! um vetor contendo os usuários que logaram no sistema
-		int usuarioLogadoID;
-		pair<string, string> servidorCanal; //<! um par contendo o servidor e o canal
+		int usuarioLogadoID; //<! armazena a id de um usuário logado
+		pair<string, string> servidorCanal; //<! um par contendo o servidor e o canal respectivamente
 
   public:
 
