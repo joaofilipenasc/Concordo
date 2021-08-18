@@ -69,7 +69,7 @@ bool Servidor::createCanal(shared_ptr<CanalTexto> canal) {
 }
 
 bool Servidor::pushParticipante(int participanteID) {
-  for (int i = 0; i < participantesIDs.size(); i++) {
+  for (long unsigned int i = 0; i < participantesIDs.size(); i++) {
     if (participantesIDs[i] == participanteID) {
       return false;
     }
@@ -80,18 +80,17 @@ bool Servidor::pushParticipante(int participanteID) {
 
 /*
 vector<Mensagem> Servidor::getMensagens(string nome) {
-  auto it_canal = find_if(canais.begin(), canais.end(), [nome](shared_ptr<CanalTexto> canal) {
+  
+  //Procura o canal com o ID recebido
+  auto itCanal = find_if(canais.begin(), canais.end(), [nome](shared_ptr<CanalTexto> canal) {
     return canal -> getNome() == nome;
   });
-  return it_canal -> getMensagens();
-
+  return itCanal -> getMensagens();
+  
 }
 
-void Servidor::sendMensagem(string nome, Mensagem mensagem) {
-  auto it_canal = find_if(canais.begin(), canais.end(), [nome](shared_ptr<CanalTexto> canal) {
-    return canal -> getNome() == nome;
-  });
-  it_canal -> sendMensagem(nome, mensagem);
+void Servidor::sendMensagem(const string nome, const Mensagem mensagem) {
+  
 
 }
 */

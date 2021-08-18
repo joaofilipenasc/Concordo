@@ -9,16 +9,19 @@ build/servidor.o: src/servidor.cpp include/servidor.h
 build/canaltexto.o: src/canaltexto.cpp include/canaltexto.h
 		g++ src/canaltexto.cpp -Iinclude -Wall -ansi -pedantic -std=c++11 -g -c -o build/canaltexto.o
 
-build/sistema.o: src/sistema.cpp include/sistema.h build/usuario.o build/servidor.o build/canaltexto.o
+build/mensagem.o: src/mensagem.cpp include/mensagem.h
+		g++ src/mensagem.cpp -Iinclude -Wall -ansi -pedantic -std=c++11 -g -c -o build/mensagem.o
+
+build/sistema.o: src/sistema.cpp include/sistema.h build/usuario.o build/servidor.o build/canaltexto.o build/mensagem.o
 		g++ src/sistema.cpp -Iinclude -Wall -ansi -pedantic -std=c++11 -g -c -o build/sistema.o
 
 build/executor.o: src/executor.cpp include/executor.h build/sistema.o
 		g++ src/executor.cpp -Iinclude -Wall -ansi -pedantic -std=c++11 -g -c -o build/executor.o
 
-build/concordo.o: src/concordo.cpp build/sistema.o build/executor.o build/usuario.o build/servidor.o build/canaltexto.o
+build/concordo.o: src/concordo.cpp build/sistema.o build/executor.o build/usuario.o build/servidor.o build/canaltexto.o build/mensagem.o
 		g++ src/concordo.cpp -Iinclude -Wall -ansi -pedantic -std=c++11 -g -c -o build/concordo.o
 
-concordo: build/concordo.o build/sistema.o build/executor.o build/usuario.o build/servidor.o build/canaltexto.o
+concordo: build/concordo.o build/sistema.o build/executor.o build/usuario.o build/servidor.o build/canaltexto.o build/mensagem.o
 		g++ build/*.o -Iinclude -Wall -ansi -pedantic -std=c++11 -g -o concordo
 
 #cria a pasta objects

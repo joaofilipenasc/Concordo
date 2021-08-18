@@ -49,7 +49,7 @@ class Servidor	{
 
 		vector<Mensagem> getMensagens(string nome);
 
-		void sendMensagem(string nome, Mensagem mensagem);
+		void sendMensagem(const string nome, const Mensagem mensagem);
 
 		~Servidor();
 

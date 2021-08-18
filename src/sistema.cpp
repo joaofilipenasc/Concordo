@@ -13,9 +13,8 @@ using namespace std;
 
 Sistema::Sistema() {
   
-  map< int, pair<string, string> > usuariosLogados;
-  int usuarioLogadoID = 0; //<! se for 0, o usuário não está logado, caso contrário guarda o ID do usuário logado
   auto servidorCanal = make_pair("","");
+  map< int , pair<string, string> > usuariosLogados;
 
 }
 
@@ -33,7 +32,7 @@ string Sistema::create_user(const string email, const string senha, const string
     return "Os campos não podem ser vazios.";
   }
 
-  for(int i = 0; i < usuarios.size(); i++) {
+  for(long unsigned int i = 0; i < usuarios.size(); i++) {
     if (usuarios[i].getEmail() == email) {
       return "Usuário já existe.";
     }
@@ -93,7 +92,7 @@ string Sistema::create_server(int id, const string nome) {
     return "Não é possível criar um servidor sem nome.";
   }
 
-  for(int i = 0; i < servidores.size(); i++) {
+  for(long unsigned int i = 0; i < servidores.size(); i++) {
     if(servidores[i].getNome() == nome) {
       return "Servidor com esse nome já existe.";
     }
@@ -173,7 +172,7 @@ string Sistema::list_servers(int id) {
   }
 
   string listaServidores = "";
-  for(int i = 0; i < servidores.size(); i++) {
+  for(long unsigned int i = 0; i < servidores.size(); i++) {
     listaServidores += servidores[i].getNome() + "\n";
   }
 
@@ -257,26 +256,22 @@ string Sistema::list_participants(int id) {
     return "Não existe servidor conectado.";
   }
 
-  Servidor encontrarServidor;
-  bool isServidor = false;
-
-  for(int i = 0; i < servidores.size(); i++) {
-    if(servidores[i].getNome() == servidorCanal.first) {
-      encontrarServidor = servidores[i];
-      isServidor = true;
+  Servidor findServidor;
+  for (long unsigned int i = 0; i < servidores.size(); i++) {
+    if (servidores[i].getNome() == servidorCanal.first) {
+      findServidor = servidores[i];
     };
   }
 
   string listaParticipantes = "";
-  vector<int> listaIDs = encontrarServidor.getParticipantesIDs();
+  vector<int> listaIDs = findServidor.getParticipantesIDs();
 
-  for(int i = 0; i < usuarios.size(); i++) {
-    for(int j = 0; j < listaIDs.size(); j++) {
-      if(usuarios[i].getId() == listaIDs[j]) {
-        listaParticipantes += usuarios[i].getNome() + "\n";
-      }
+  for (long unsigned int i = 0; i < usuarios.size(); i++) {
+    for (long unsigned int j = 0; j < listaIDs.size(); j++) {
+      if (usuarios[i].getId() == listaIDs[j]) listaParticipantes += usuarios[i].getNome() + "\n";
     }
   }
+
   return listaParticipantes;
 
 }
@@ -299,17 +294,18 @@ string Sistema::list_channels(int id) {
     return nomeServidor == servidor.getNome();
   });
 
-  if(servidorCanal.second.length() == 0) {
+  vector<string> canaisTexto = itServidor -> getCanaisTexto();
+
+  if(canaisTexto.empty()) {
     return "Nenhum canal no servidor foi encontrado.";
   }
   //Variável de retorno para concatenar os canais
   string canais;
-  if(servidorCanal.second.length() != 0) {
+  if (!canaisTexto.empty()) {
     canais += "#canais de texto\n";
-    for(auto itCanal = servidorCanal.second.begin(); itCanal != servidorCanal.second.end(); itCanal++) {
-      if(itCanal != servidorCanal.second.end()) {
-        canais += *itCanal + "\n";
-      }
+
+    for (auto findCanal = canaisTexto.begin(); findCanal != canaisTexto.end(); findCanal++) {
+      if (findCanal != canaisTexto.end()) canais += *findCanal + "\n";
     }
   }
   return canais;
@@ -415,10 +411,10 @@ string Sistema::leave_channel(int id) {
 
   return "O usuário está saindo do canal \'" + nomeCanal + "\'.";
 }
-/*
+
 //Enviar uma mensagem para o canal
 string Sistema::send_message(int id, const string mensagem) {
-  
+  /*
   if(id == 0) {
     return "Não existe usuário conectado.";
   }
@@ -452,12 +448,13 @@ string Sistema::send_message(int id, const string mensagem) {
   itServidor -> sendMensagem(servidorCanal.second, novaMensagem);
 
   return "A mensagem foi enviada com sucesso.";
-  
+  */
+  return "Ainda não implementado.";
 }
 
 //Listar as mensagens do canal
 string Sistema::list_messages(int id) {
-  
+/*  
   if(id == 0) {
     return "Não existe usuário conectado.";
   }
@@ -487,6 +484,7 @@ string Sistema::list_messages(int id) {
     mensagens += usuarios[itMensagem -> getEnviadaPor() - 1].getNome() + " <" + itMensagem -> getDataHora() + ">: " + itMensagem -> getConteudo() + "\n";
   }  
   return mensagens;
-
+  */
+  return "Ainda não implementado.";
 }
-*/
+
