@@ -439,7 +439,7 @@ string Sistema::enter_channel(int id, string nome) {
     return nomeCanal == nome;
   });
 
-  //Se o canal encontrado for encontrado, o usuário entra no canal
+  //Se o canal for encontrado, o usuário entra no canal
   if(itCanalTexto != encontraCanaisTexto.end()) {
     servidorCanal.second = nome;
     return "Entrou no canal \'" + nome + "\'.";
