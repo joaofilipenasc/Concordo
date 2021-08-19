@@ -345,7 +345,7 @@ string Sistema::list_channels(int id) {
   string canais;
 
   if(!canaisTexto.empty()) {
-    canais += "#canais de texto\n";
+    canais += "#CANAIS\n";
 
     for(auto itCanal = canaisTexto.begin(); itCanal != canaisTexto.end(); itCanal++) {
       if(itCanal != canaisTexto.end()) {
