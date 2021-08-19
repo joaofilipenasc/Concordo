@@ -31,5 +31,5 @@ Ou pode criar um arquivo de texto com uma lista de comandos (um por linha) e exe
 
 1.  Dificuldade em implementar as funções relacionadas às mensagens no sistema.cpp
 2.  Fazer uso do map com pair no projeto de maneira correta
-3.  Editar corretamente o arquivo Makefile, mas acabou dando certo :smile:
+3.  Editar corretamente o arquivo Makefile, mas acabou dando certo no final :smile:
 

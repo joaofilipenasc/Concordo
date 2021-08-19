@@ -476,77 +476,15 @@ string Sistema::leave_channel(int id) {
 
 //Enviar uma mensagem para o canal
 string Sistema::send_message(int id, const string mensagem) {
-  /*
-  if(id == 0) {
-    return "Não existe usuário conectado.";
-  }
-
-  if(servidorCanal.first.length() == 0) {
-    return "O usuário não está conectado a um servidor no momento.";
-  }
-
-  if(servidorCanal.second.length() == 0) {
-    return "O usuário não está conectado a um canal no momento.";
-  }
-
-  if(mensagem.empty()) {
-    return "A mensagem está vazia.";
-  }
-
-  string nomeServidor = servidorCanal.first;
-
-  auto itServidor = find_if(servidores.begin(), servidores.end(), [nomeServidor](Servidor servidor) {
-    return servidor.getNome() == nomeServidor;
-  });
-
-  //Faz a captura e o armazenamento da hora atual
-  char dataHora[100];
-  time_t atual = time(nullptr);
-
-  strftime(dataHora, 50, "%d/%m/%Y - %R", localtime(&atual));
-
-  Mensagem novaMensagem(dataHora, id, mensagem);
-
-  itServidor -> sendMensagem(servidorCanal.second, novaMensagem);
-
-  return "A mensagem foi enviada com sucesso.";
-  */
+  
   return "Ainda não implementado.";
+  
 }
 
 //Listar as mensagens do canal
 string Sistema::list_messages(int id) {
-/*  
-  if(id == 0) {
-    return "Não existe usuário conectado.";
-  }
 
-  if(servidorCanal.first.length() == 0) {
-    return "O usuário não está conectado a um servidor no momento.";
-  }
-
-  if(servidorCanal.second.length() == 0) {
-    return "O usuário não está conectado a um canal no momento.";
-  }
-
-  string nomeServidor = servidorCanal.first;
-
-  auto itServidor = find_if(servidores.begin(), servidores.end(), [nomeServidor](Servidor servidor) {
-    return servidor.getNome() == nomeServidor;
-  });
-
-  vector<Mensagem> listaMensagens = itServidor -> getMensagens(servidorCanal.second);
-
-  if(listaMensagens.empty()) {
-    return "Não há mensagens.";
-  }
-
-  string mensagens;
-  for(auto itMensagem = listaMensagens.begin(); itMensagem != listaMensagens.end(); itMensagem++) {
-    mensagens += usuarios[itMensagem -> getEnviadaPor() - 1].getNome() + " <" + itMensagem -> getDataHora() + ">: " + itMensagem -> getConteudo() + "\n";
-  }  
-  return mensagens;
-  */
   return "Ainda não implementado.";
+
 }
 

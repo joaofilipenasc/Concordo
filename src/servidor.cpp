@@ -1,5 +1,5 @@
-#include <algorithm>
 #include <iostream>
+#include <algorithm>
 #include <memory>
 #include <string>
 #include <vector>
@@ -79,19 +79,14 @@ bool Servidor::pushParticipante(int participanteID) {
 }
 
 /*
-vector<Mensagem> Servidor::getMensagens(string nome) {
+vector<Mensagem> Servidor::getMensagens(string nomeCanal) {  
   
-  //Procura o canal com o ID recebido
-  auto itCanal = find_if(canais.begin(), canais.end(), [nome](shared_ptr<CanalTexto> canal) {
-    return canal -> getNome() == nome;
-  });
-  return itCanal -> getMensagens();
-  
+
 }
 
-void Servidor::sendMensagem(const string nome, const Mensagem mensagem) {
-  
+void Servidor::sendMensagem(string nomeCanal, Mensagem mensagem) {
 
+  
 }
 */
 

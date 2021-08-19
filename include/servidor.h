@@ -47,9 +47,9 @@ class Servidor	{
 
 		bool pushParticipante(int participanteID);
 
-		vector<Mensagem> getMensagens(string nome);
+		vector<Mensagem> getMensagens(string nomeCanal);
 
-		void sendMensagem(const string nome, const Mensagem mensagem);
+		void sendMensagem(string nomeCanal, Mensagem mensagem);
 
 		~Servidor();
 
