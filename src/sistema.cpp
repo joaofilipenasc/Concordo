@@ -425,28 +425,26 @@ string Sistema::enter_channel(int id, string nome) {
   if(nome.length() == 0) {
     return "O canal precisa ter um nome para entrar";
   }
-
+  
+  //Procurar servidor pelo nome
   string nomeServidor = servidorCanal.first;
 
   auto itServidor = find_if(servidores.begin(), servidores.end(), [nomeServidor](Servidor servidor) {
     return servidor.getNome() == nomeServidor;
   });
 
-  vector<string> findCanaisTexto = itServidor -> getCanaisTexto();
-  auto itCanalTexto = find_if(findCanaisTexto.begin(), findCanaisTexto.end(), [nome](std::string nomeCanal) {
+  //Encontrar os canais do servidor pelo nome
+  vector<string> encontraCanaisTexto = itServidor -> getCanaisTexto();
+  auto itCanalTexto = find_if(encontraCanaisTexto.begin(), encontraCanaisTexto.end(), [nome](std::string nomeCanal) {
     return nomeCanal == nome;
   });
 
-  if(itCanalTexto != findCanaisTexto.end()) {
+  //Se o canal encontrado for encontrado, o usuário entra no canal
+  if(itCanalTexto != encontraCanaisTexto.end()) {
     servidorCanal.second = nome;
     return "Entrou no canal \'" + nome + "\'.";
   } 
-  else {
-    servidorCanal.second = nome;
-
-    return "Entrou no canal \'" + nome + "\'.";
-  }
-
+  
 }
 
 //Sair de um canal
